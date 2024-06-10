@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        #anim, #shuffle {
+            font-size: 100px;
+            font-weight: bold;
+        }
+        #btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+        }
+        #btn:hover {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <span id="anim"></span><span id="shuffle"></span>
+        <br /><br />
+        <button id="btn">Again</button>
+    </p>
+
+    <script>
+        var $ = function(id) {
+            return document.getElementById(id);
+        };
+
+        var inc = 0;
+        var out = 0;
+        var str = 'Hello World';
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@$%&';
+        var t;
+
+        var anim = function() {
+            inc++;
+            if (inc % 7 === 0 && out < str.length) {
+                $('anim').appendChild(document.createTextNode(str[out]));
+                out++;
+            } else if (out >= str.length) {
+                $('shuffle').innerHTML = '';
+                clearInterval(t);
+            }
+            $('shuffle').innerHTML = chars[Math.floor(Math.random() * chars.length)];
+        };
+
+        function startAnimation() {
+            inc = 0;
+            out = 0;
+            $('anim').innerHTML = '';
+            $('shuffle').innerHTML = '';
+            t = setInterval(anim, 50);
+        }
+
+        document.getElementById('btn').onclick = function() {
+            startAnimation();
+        };
+
+        window.onload = function() {
+            startAnimation();
+        };
+    </script>
+</body>
+</html>
+
+
