@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+          @font-face {
+    font-family: 'D2';
+    src: url('./assets/D2CODING-VER1.3.2-20180524-ALL.TTC') format('D2CODING');}
+        body {
+            background-color: black; /* 배경을 검은색으로 설정 */
+            color: white; /* 글자를 흰색으로 설정 */
+            font-family: Arial, sans-serif; /* 글꼴 설정 */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* 숨겨진 클래스 */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body style="font-size: 30px; font-family: 'D2CODING'">
+    <div class="container">
+        <p class="sentence">Random Playlist Title 1</p>
+        <p class="sentence hidden">Random Playlist Title 2</p>
+        <p class="sentence hidden">Random Playlist Title 3</p>
+        <p class="sentence hidden">Random Playlist Title 4</p>
+        <p class="sentence hidden">Random Playlist Title 5</p>
+        <p class="sentence hidden">Random Playlist Title 6</p>
+        <p class="sentence hidden">Random Playlist Title 7</p>
+        <p class="sentence hidden">Random Playlist Title 8</p>
+        <p class="sentence hidden">Random Playlist Title 9</p>
+        <p class="sentence hidden">Random Playlist Title 10</p>
+        <p class="sentence hidden">Random Playlist Title 11</p>
+        <p class="sentence hidden">Random Playlist Title 12</p>
+        <p class="sentence hidden">Random Playlist Title 13</p>
+        <p class="sentence hidden">Random Playlist Title 14</p>
+        <p class="sentence hidden">Random Playlist Title 15</p>
+    </div>
+
+    <script>
+        // JavaScript를 사용하여 문장들을 순서대로 표시하고 간격이 점점 빨라지도록 설정
+        document.addEventListener("DOMContentLoaded", function() {
+            const sentences = document.querySelectorAll('.sentence');
+
+            let index = 0;
+            let delay = 1000; // 초기 딜레이는 1초
+
+            const showNextSentence = () => {
+                if (index < sentences.length) {
+                    sentences[index].classList.remove('hidden');
+                    index++;
+                    if (index <= 3) {
+                        delay = 900; // 처음 3문장은 0.9초 간격
+                    } else {
+                        delay -= 260; // 그 이후부터는 점점 간격을 줄임
+                    }
+                    setTimeout(showNextSentence, delay); // 현재 딜레이 후에 다음 문장 표시
+                } else if (index === sentences.length) {
+                    // 모든 문장이 생성된 후 1.5초 동안 멈춘 후에 다시 문장 생성
+                    setTimeout(showNextSentence, 1500);
+                    index++; // 다음 호출을 위해 인덱스 증가
+                }
+            };
+
+            // 랜덤 플레이리스트 제목 배열
+            const playlistTitles = [
+                "Chill Vibes Mix",
+                "Summer Hits 2024",
+                "Feel Good Classics",
+                "Hip Hop Jams",
+                "Study Beats",
+                "Road Trip Anthems",
+                "Late Night Grooves",
+                "Throwback Party",
+                "Indie Discovery",
+                "EDM Party Mix",
+                "Relaxing Piano Melodies",
+                "Rock Legends",
+                "80s Flashback",
+                "Jazz Cafe",
+                "Pop Party Anthems"
+            ];
+
+            // 문장들의 텍스트를 랜덤 플레이리스트 제목으로 변경
+            sentences.forEach((sentence, idx) => {
+                sentence.textContent = playlistTitles[idx];
+            });
+
+            // 첫 번째 문장부터 시작
+            showNextSentence();
+        });
+    </script>
+</body>
+</html>
+
+

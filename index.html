@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
+        @font-face {
+    font-family: 'D2';
+    src: url('./assets/D2CODING-VER1.3.2-20180524-ALL.TTC') format('D2CODING');}
         body {
             display: flex;
+            flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            height: 100vh;
+            height: 130vh;
             margin: 0;
             padding: 20px;
             font-family: Arial, sans-serif;
             background-color: #000000;
             color: #ffffff;
         }
-        #anim, #shuffle {
-            font-size: 100px;
+        .anim, .shuffle {
+            font-size: 30px;
+            font-weight: light;
+        }
+        #anim1, #shuffle1 {
+            font-size: 140px;
             font-weight: bold;
+        }
+        .container {
+            margin-bottom: 20px;
         }
         #btn {
             margin-top: 20px;
@@ -32,14 +42,56 @@
         #btn:hover {
             background-color: #dddddd;
         }
+        /* 추가한 스타일 */
+        .container:not(:first-child) .anim {
+            font-size: 20px;
+            font-weight: normal;
+        }
     </style>
 </head>
 <body>
-    <p>
-        <span id="anim"></span><span id="shuffle"></span>
-        <br /><br />
-        <button id="btn">Again</button>
-    </p>
+    <div class="container">
+        <span id="anim1" class="anim"></span><span id="shuffle1" class="shuffle"></span>
+    </div>
+    <div style="font-family: 'D2CODING';">
+    <div class="container">
+        <span id="text2" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text3" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text4" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text5" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text6" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text7" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text8" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text9" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text10" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text11" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text12" class="anim"></span>
+    </div>
+    <div class="container">
+        <span id="text13" class="anim"></span>
+    </div>
+</div>
+    <button id="btn">Again</button>
 
     <script>
         var $ = function(id) {
@@ -48,32 +100,57 @@
 
         var inc = 0;
         var out = 0;
-        var str = 'Hello World';
+        var phrases = [
+            'Spotify X EasyJet', 'Hello World', 'Welcome to the Show', 'Enjoy the Music', 'Goodbye!',
+            'Keep Learning', 'Stay Positive', 'Work Hard', 'Stay Humble', 'Be Kind',
+            'Love More', 'Laugh Often', '> Play Your Playlist!'
+        ];
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@$%&';
         var t;
 
-        var anim = function() {
+        var anim = function(animId, shuffleId) {
             inc++;
-            if (inc % 7 === 0 && out < str.length) {
-                $('anim').appendChild(document.createTextNode(str[out]));
+            if (inc % 7 === 0 && out < phrases[0].length) {
+                $(animId).appendChild(document.createTextNode(phrases[0][out]));
                 out++;
-            } else if (out >= str.length) {
-                $('shuffle').innerHTML = '';
+            } else if (out >= phrases[0].length) {
                 clearInterval(t);
+                $(shuffleId).innerHTML = '';
+                displayStaticText();
+                return;
             }
-            $('shuffle').innerHTML = chars[Math.floor(Math.random() * chars.length)];
+            $(shuffleId).innerHTML = chars[Math.floor(Math.random() * chars.length)];
         };
+
+        function displayStaticText() {
+            let delay = 50;
+            phrases.slice(1).reverse().forEach((phrase, index) => {
+                setTimeout(() => {
+                    $('text' + (phrases.length - index)).textContent = phrase;
+                }, delay);
+                delay += 50; // Increase delay to make the next phrase appear slower
+            });
+        }
 
         function startAnimation() {
             inc = 0;
             out = 0;
-            $('anim').innerHTML = '';
-            $('shuffle').innerHTML = '';
-            t = setInterval(anim, 50);
+            $('anim1').innerHTML = '';
+            $('shuffle1').innerHTML = '';
+            for (let i = 2; i <= phrases.length; i++) {
+                $('text' + i).innerHTML = '';
+            }
+            t = setInterval(function() {
+                anim('anim1', 'shuffle1');
+            }, 50);
         }
 
         document.getElementById('btn').onclick = function() {
             startAnimation();
+        };
+
+        $('text13').onclick = function() {
+            window.location.href = 'index2.html'; // Change this to the desired URL
         };
 
         window.onload = function() {
@@ -82,5 +159,13 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
